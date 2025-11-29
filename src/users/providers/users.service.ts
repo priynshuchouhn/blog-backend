@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
+  findUserById(userId: string) {
+    return { id: userId, name: 'User ' + userId };
+  }
   createUser(body: any) {
     return { message: 'User created', user: body };
   }
