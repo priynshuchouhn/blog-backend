@@ -15,26 +15,39 @@ import { Type } from 'class-transformer';
 import { CreatePostMetaOptionsDto } from './create-post-meta-options.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
+/**
+ * Post Status Enum
+ */
 export enum PostStatus {
   DRAFT = 'draft',
   SCHEDULED = 'scheduled',
   REVIEW = 'review',
   PUBLISHED = 'published',
 }
+/**
+ * Post Type Enum
+ */
 export enum PostType {
   POST = 'post',
   PAGE = 'page',
   STORY = 'story',
   SERIES = 'series',
 }
-
+/**
+ * Create Post DTO
+ */
 export class CreatePostDto {
+  /**
+   * Title
+   */
   @ApiProperty()
   @IsString()
   @MinLength(4)
   @IsNotEmpty()
   title: string;
-
+  /**
+   * Post Type
+   */
   @ApiProperty({
     enum: PostType,
     description: "Possible values  'post', 'page', 'story', 'series'",
@@ -43,6 +56,9 @@ export class CreatePostDto {
   @IsNotEmpty()
   postType: PostType;
 
+  /**
+   * Slug
+   */
   @ApiProperty({
     description: "For example 'my-url'",
   })
@@ -54,6 +70,9 @@ export class CreatePostDto {
   })
   slug: string;
 
+  /**
+   * Status
+   */
   @ApiProperty({
     enum: PostStatus,
     description: "Possible values 'draft', 'scheduled', 'review', 'published'",
@@ -62,11 +81,16 @@ export class CreatePostDto {
   @IsNotEmpty()
   status: PostStatus;
 
+  /**
+   * Content
+   */
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   content?: string;
-
+  /**
+   * Schema
+   */
   @ApiPropertyOptional({
     description:
       'Serialize your JSON object else a validation error will be thrown',
@@ -74,12 +98,16 @@ export class CreatePostDto {
   @IsOptional()
   @IsJSON()
   schema?: string;
-
+  /**
+   * Featured Image URL
+   */
   @ApiPropertyOptional()
   @IsOptional()
   @IsUrl()
   featuredImageUrl?: string;
-
+  /**
+   * Publish On
+   */
   @ApiProperty({
     description: 'Must be a valid timestamp in ISO8601',
     example: '2024-03-16T07:46:32+0000',
@@ -87,14 +115,18 @@ export class CreatePostDto {
   @IsISO8601()
   @IsOptional()
   publishOn?: Date;
-
+  /**
+   * Tags
+   */
   @ApiPropertyOptional()
   @IsArray()
   @IsOptional()
   @IsString({ each: true })
   @MinLength(3, { each: true })
   tags?: string[];
-
+  /**
+   * Meta Options
+   */
   @ApiPropertyOptional({
     type: 'array',
     required: false,

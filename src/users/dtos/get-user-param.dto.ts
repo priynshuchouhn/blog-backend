@@ -3,7 +3,13 @@ import { IsInt, IsOptional } from 'class-validator';
 
 import { Type } from 'class-transformer';
 
+/**
+ * Get Users Param DTO
+ */
 export class GetUsersParamDto {
+  /**
+   * User ID
+   */
   @ApiPropertyOptional()
   @IsOptional()
   @IsInt()

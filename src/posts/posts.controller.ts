@@ -4,9 +4,16 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { UpdatePostDto } from './dtos/update-post.dto';
 
+/**
+ * Posts Controller
+ */
 @Controller('posts')
 @ApiTags('Posts')
 export class PostsController {
+  /**
+   * Constructor
+   * @param postsService Posts Service
+   */
   constructor(
     /*
      *  Injecting Posts Service
@@ -14,7 +21,7 @@ export class PostsController {
     private readonly postsService: PostsService,
   ) {}
 
-  /*
+  /**
    * GET localhost:3000/posts/:userId
    */
   @Get('/{:userId}')
@@ -22,6 +29,9 @@ export class PostsController {
     return this.postsService.findAll(userId);
   }
 
+  /**
+   * Creates a new post for the blog.
+   */
   @ApiOperation({
     summary: 'Creates a new post for the blog.',
   })
@@ -34,7 +44,9 @@ export class PostsController {
   public createPost(@Body() createPostDto: CreatePostDto) {
     console.log(createPostDto);
   }
-
+  /**
+   * Updates and existing blog post in the database.
+   */
   @ApiOperation({
     summary: 'Updates and existing blog post in the database.',
   })

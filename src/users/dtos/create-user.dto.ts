@@ -8,23 +8,38 @@ import {
   MinLength,
 } from 'class-validator';
 
+/**
+ * Create User DTO
+ */
 export class CreateUserDto {
+  /**
+   * First Name
+   */
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
   @MaxLength(96)
   firstName: string;
 
+  /**
+   * Last Name
+   */
   @IsString()
   @IsOptional()
   @MinLength(3)
   @MaxLength(96)
   lastName?: string;
 
+  /**
+   * Email
+   */
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  /**
+   * Password
+   */
   @IsString()
   @IsNotEmpty()
   @MinLength(8)

@@ -11,11 +11,25 @@ import { UsersService } from './providers/users.service';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetUsersParamDto } from './dtos/get-user-param.dto';
 
+/**
+ * Users Controller
+ */
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
+  /**
+   * Constructor
+   * @param usersService Users Service
+   */
   constructor(private readonly usersService: UsersService) {}
 
+  /**
+   * Get Users with Pagination
+   * @param params
+   * @param limit
+   * @param page
+   * @returns
+   */
   @ApiOperation({ summary: 'Get Users with Pagination' })
   @ApiQuery({
     name: 'limit',
