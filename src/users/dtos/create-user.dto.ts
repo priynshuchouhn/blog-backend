@@ -1,50 +1,36 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateUserDto {
-  @ApiProperty({
-    description: 'The first name of the user',
-    example: 'John',
-  })
-  @IsString({
-    message: 'Name must be a string',
-  })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @MaxLength(96)
   firstName: string;
 
-  @ApiPropertyOptional({
-    description: 'The last name of the user',
-    example: 'Doe',
-  })
+  @IsString()
   @IsOptional()
-  @IsString({
-    message: 'Name must be a string',
-  })
+  @MinLength(3)
+  @MaxLength(96)
   lastName?: string;
 
-  @ApiProperty({
-    description: 'The email address of the user',
-    example: 'john.doe@example.com',
-  })
-  @IsString({
-    message: 'Email must be a string',
-  })
-  @IsEmail(
-    {},
-    {
-      message: 'Email must be a valid email address',
-    },
-  )
+  @IsEmail()
+  @IsNotEmpty()
   email: string;
 
-  @ApiProperty({
-    description: 'The password of the user',
-    example: 'strongPassword123',
-  })
-  @IsString({
-    message: 'Password must be a string',
-  })
-  @MinLength(6, {
-    message: 'Password must be at least 6 characters long',
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8)
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
+    message:
+      'Minimum eight characters, at least one letter, one number and one special character',
   })
   password: string;
 }
